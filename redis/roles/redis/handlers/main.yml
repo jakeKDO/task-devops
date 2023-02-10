@@ -1,0 +1,7 @@
+---
+# handlers file for redis
+- name: compose_up
+  community.docker.docker_compose:
+    project_src: /opt
+    files:
+      - docker-compose.yml

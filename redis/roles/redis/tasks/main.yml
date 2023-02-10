@@ -1,0 +1,34 @@
+---
+# tasks file for redis
+- name: Create an SRV record test01.example.com
+  community.general.cloudflare_dns:
+    domain: example.com
+    service: redis
+    proto: tcp
+    port: 6379
+    priority: 10
+    weight: 20
+    type: SRV
+    value: test01.example.com
+
+- name: Create an SRV record test02.example.com
+  community.general.cloudflare_dns:
+    domain: example.com
+    service: redis
+    proto: tcp
+    port: 6379
+    priority: 10
+    weight: 20
+    type: SRV
+    value: test02.example.com
+
+- name: Create dir for pj
+  file: path=/opt/conf/ owner=test group=test state=directory mode=0755
+
+- name: copy redis.conf
+  copy: src=redis.conf dest=/opt/conf/
+
+- name: Copy dc file
+  template: src=docker-compose.j2 dest=/opt/docker-compose.yml
+  notify:
+    - compose_up

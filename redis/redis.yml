@@ -1,0 +1,9 @@
+---
+- name: redis-cluster
+  hosts: redis
+  become: True
+
+  roles:
+    - redis
+
+   
